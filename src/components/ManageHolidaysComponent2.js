@@ -4,57 +4,93 @@ import '../components/Holidays.css';
 import { useState } from "react";
 import { BiEditAlt } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
-function ManageHolidaysComponent()
+// import { Calendar } from "react-multi-date-picker/plugins";
+function ManageHolidaysTest()
 {
-    const [formData, setFormData] = useState({
-        day:'',
+        const [formData, setFormData] = useState({
         date: '',
-        type: ''
+        type: '',
+        day:'',
+        Banglore:'',
+        Pune:'',
+        Ahmedabad:'',
+        Japan:''
       });
     const [tableData, setTableData] = useState([
-            {Banglore:'yes',Pune:'yes',Ahmedabad:'no',Japan:'no', date:'22-MAR-2023', day:'Wednesday',type:'Ugadi/Gudi Padva'},
-            {Banglore:'yes',Pune:'yes',Ahmedabad:'yes',Japan:'no', date:'01-MAY-2023', day:'Monday',type:'May Day'},
-            {Banglore:'yes',Pune:'yes',Ahmedabad:'yes',Japan:'no', date:'29-JUN-2023', day:'Thursday',type:'Bakrid'},
-            {Banglore:'yes',Pune:'yes',Ahmedabad:'yes',Japan:'no', date:'15-AUG-2023', day:'Tuesday',type:'Independence day'},
-            {Banglore:'no',Pune:'no',Ahmedabad:'yes',Japan:'no', date:'13-NOV-2023', day:'Monday',type:'Vikram Samvat New Year'},
-            {Banglore:'no',Pune:'no',Ahmedabad:'no',Japan:'yes', date:'23-NOV-2023', day:'Thursday',type:'Labour Thanksgiving day'},
-            {Banglore:'yes',Pune:'no',Ahmedabad:'no',Japan:'no', date:'01-NOV-2023', day:'Wednesday',type:'Kannada Rajyotsava'},
+            {Banglore:'on',Pune:'on',Ahmedabad:'',Japan:'', date:'22-MAR-2023', day:'Wednesday',type:'Ugadi/Gudi Padva'},
+            {Banglore:'on',Pune:'on',Ahmedabad:'on',Japan:'', date:'01-MAY-2023', day:'Monday',type:'May Day'},
+            {Banglore:'on',Pune:'on',Ahmedabad:'on',Japan:'', date:'29-JUN-2023', day:'Thursday',type:'Bakrid'},
+            {Banglore:'on',Pune:'on',Ahmedabad:'on',Japan:'', date:'15-AUG-2023', day:'Tuesday',type:'Independence day'},
+            {Banglore:'',Pune:'',Ahmedabad:'on',Japan:'', date:'13-NOV-2023', day:'Monday',type:'Vikram Samvat New Year'},
+            {Banglore:'',Pune:'',Ahmedabad:'',Japan:'on', date:'23-NOV-2023', day:'Thursday',type:'Labour Thanksgiving day'},
+            {Banglore:'on',Pune:'',Ahmedabad:'',Japan:'', date:'01-NOV-2023', day:'Wednesday',type:'Kannada Rajyotsava'},
             ]);
-    
-        const [checkboxValues,setCheckboxvalue]=useState({});
-        const [locations,setLocations]=useState([]);
+
+            const testdata=[
+                {type:'Ugadi/Padva',date:'03/22/2023',location:'Banglore'},
+                {type:'Ugadi/Padva',date:'03/22/2023',location:'Pune'},
+                {type:'May Day',date:'05/01/2023',location:'Banglore'},
+                {type:'May Day',date:'05/01/2023',location:'Pune'},
+                {type:'May Day',date:'05/01/2023',location:'Ahmedabad'},
+                {type:'Bakrid',date:'06/29/2023',location:'Banglore'},
+                {type:'Bakrid',date:'06/29/2023',location:'Pune'},
+                {type:'Bakrid',date:'06/29/2023',location:'Ahmedabad'}
+                // {
+                //     type:'',
+                //     date:'',
+                //     location:''
+                // }
+            ]
         function formChangehandler(e){
             const name=e.target.name;
             const value=e.target.value;
-            // const loc=e.target.location;
-            // locations.push(loc);
-            // console.log(locations)
             setFormData({...formData,[name]:value});
-            console.log(locations)
-            for(var i=0;i<locations.length;i++)
-            {
-              console.log(locations)
-              const loc=locations[i];
-              setTableData([{...formData,['location']:loc}]);
-            }
-            // console.log(formData);
+            // console.log(formData)
         }
-        
         function HolidaydataHandler(e){
             e.preventDefault();
+            if(formData.Banglore==='on')
+            {
+                const obj={
+                type:formData.type,
+                date:formData.date,
+                location:'Banglore'}
+                testdata.push(obj)
+                // setTestData(...testdata,obj)
+            }
+            if(formData.Pune==='on')
+            {
+                const obj={
+                type:formData.type,
+                date:formData.date,
+                location:'Pune'}
+                testdata.push(obj)
+                // setTestData(...testdata,obj)
+            }
+            if(formData.Ahmedabad==='on')
+            {
+                const obj={
+                type:formData.type,
+                date:formData.date,
+                location:'Ahmedabad'}
+                testdata.push(obj)
+                // setTestData(...testdata,obj)
+            }
+            if(formData.Japan==='on')
+            {
+                const obj={
+                type:formData.type,
+                date:formData.date,
+                location:'Japan'}
+                testdata.push(obj)
+                // setTestData(...testdata,obj)
+            }
+            console.log("testdata")
+            console.log(testdata)
             setTableData([...tableData,formData])
-            console.log(formData);
-            console.log(tableData);
+            // console.log(formData);
+            // console.log(tableData);
         }
-        
-        function checkboxHandler(e){
-            const name=e.target.name;
-            setLocations(...locations,name);
-            // locations.push(name);
-            console.log(locations)
-        }
-
-        
   return (
     <div className="mainDiv" style={{ height: 100 + "vh" }}>
     <div className="leftColumn" style={{ height: 100 + "vh" }}>
@@ -71,19 +107,19 @@ function ManageHolidaysComponent()
                           <option value="Friday">Friday</option>
                         </select> */}
                         <lable style={{ display: "flex", alignItems: "center" }}>
-                        <input type="checkbox" name="Banglore" checked={checkboxValues.Banglore} onChange={checkboxHandler}></input>
+                        <input type="checkbox" name="Banglore" checked={formData.Banglore} onChange={formChangehandler}></input>
                         Banglore
                         </lable>
                         <lable style={{ display: "flex"}}>
-                        <input type="checkbox" name="Pune" checked={checkboxValues.Pune} onChange={checkboxHandler}></input>
+                        <input type="checkbox" name="Pune" checked={formData.Pune} onChange={formChangehandler}></input>
                         Pune
                         </lable>
                         <lable style={{ display: "flex"}}>
-                        <input type="checkbox" name="Ahmedabad" checked={checkboxValues.Ahmedabadh} onChange={checkboxHandler}></input>
+                        <input type="checkbox" name="Ahmedabad" checked={formData.Ahmedabad} onChange={formChangehandler}></input>
                         Ahmedabad
                         </lable>
                         <lable style={{ display: "flex"}}>
-                        <input type="checkbox" name="Japan" checked={checkboxValues.Japan} onChange={checkboxHandler}></input>
+                        <input type="checkbox" name="Japan" checked={formData.Japan} onChange={formChangehandler}></input>
                         Japan
                         </lable><br/>
                         {/* <input type="text" name="location" value={formData.location} placeholder="Locations" onChange={checkboxHandler}/> */}
@@ -115,27 +151,22 @@ function ManageHolidaysComponent()
         {tableData.map((item)=>(
           <tr className="TableRow">
           <td className="elements">{item.type}</td>
-          <td className="elements">{item.date}</td>
-          <td className="elements">{item.day}</td>
-          {item.Banglore==='yes'?(<td className="elements" style={{align:'center',width:50+'px'}}><Ai.AiOutlineCheck /></td>):(<td className="elements" ></td>)}     
-          {item.Pune==='yes'?(<td className="elements" style={{align:'center',width:50+'px'}}><Ai.AiOutlineCheck /></td>):(<td className="elements" ></td>)}     
-          {item.Ahmedabad==='yes'?(<td className="elements" style={{align:'center',width:50+'px'}}><Ai.AiOutlineCheck /></td>):(<td className="elements" ></td>)}     
-          {item.Japan==='yes'?(<td className="elements" style={{align:'center',width:50+'px'}}><Ai.AiOutlineCheck /></td>):(<td className="elements"></td>)}     
+          <td className="elements">{new Date(item.date).toLocaleDateString(undefined, {day:'2-digit',month:'short',year:'numeric'})}</td>
+          <td className="elements">{new Date(item.date).toLocaleDateString(undefined, {weekday: 'long'})}</td>
+          {item.Banglore=='on'?(<td className="elements" style={{align:'center',width:50+'px'}}><Ai.AiOutlineCheck /></td>):(<td className="elements" ></td>)}
+          {item.Pune=='on'?(<td className="elements" style={{align:'center',width:50+'px'}}><Ai.AiOutlineCheck /></td>):(<td className="elements" ></td>)}
+          {item.Ahmedabad=='on'?(<td className="elements" style={{align:'center',width:50+'px'}}><Ai.AiOutlineCheck /></td>):(<td className="elements" ></td>)}
+          {item.Japan=='on'?(<td className="elements" style={{align:'center',width:50+'px'}}><Ai.AiOutlineCheck /></td>):(<td className="elements"></td>)}
           <td style={{fontWeight:'normal'}} className="elements">
-                        
                         <BiEditAlt onClick={()=>{
                           console.log("Edit");
                         }} style={{cursor:'pointer'}}/>
-                      
                     </td>
                     <td style={{fontWeight:'normal'}} className="elements">
-                      
                         <MdDeleteForever onClick={()=>{
                           console.log("Delete");
                         }} style={{cursor:'pointer'}}/>
-                      
                     </td>
-         
           </tr>
         ))}
     </tbody>
@@ -145,5 +176,4 @@ function ManageHolidaysComponent()
     </div>
   );
 }
-
-export default ManageHolidaysComponent;
+export default ManageHolidaysTest;
