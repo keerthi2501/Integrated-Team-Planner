@@ -1,0 +1,363 @@
+th, td, tr{
+    border:1px solid black;
+    /* height:18px; */
+   /* width:3px; */
+    text-align: center;
+    border-collapse: collapse;
+    border-spacing: 0;
+   
+  }
+  
+  
+  /* .empNames,.validationsBottom{
+    width: 250px;
+  } */
+  th .validationsBottom{
+    width : 5px;
+  }
+
+  .vItems{
+    width: 12px;
+  }
+  td{
+    /* table-layout: fixed; */
+    /* width: max-content; */
+    /* height: 12px; */
+    padding: -6px;
+    font-size: 10px;
+  }
+  
+  .viewTable {
+    width:95%;
+    align-items: center;
+    float: inline-start;
+    text-align: center;
+    margin: auto;
+    margin-top: 5px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    /* table-layout: fixed; */
+  }
+.heading{
+    text-align: center;
+    margin-top: none;
+}
+  .row {
+    display: flex;
+    margin-left:-5px;
+    margin-right:-5px;
+    /* height: auto; */
+  }
+
+  
+  .column1 {
+    flex: 80%;
+    padding: 5px;
+    align-items: left;
+  }
+  .column2 {
+    /* flex: 30%; */
+    padding: 3px;
+  }
+  .validation2 {
+    flex: 85%;
+    padding: 3px;
+  }
+
+
+  .validation2 tr th{
+    width: 22.5px;
+  }
+ 
+
+  .calender {
+    /* font-size: 16px; */
+    text-align: center;
+    /* background: yellow; */
+    /* float:; */
+    text-decoration: solid;
+    padding-left: 1350px;
+    font-weight: 900;
+    /* border: 1px solid black; */
+  }
+  .rowHead{
+    /* width: 20px; */
+    text-align: left;
+  }
+
+  .clicked{
+    background-color: rgb(159, 228, 239);
+  }
+
+  .bangalore{
+    background-color: #80B89F;
+  }
+
+  .pune{
+    background-color: #82C7DF;
+  }
+
+  .ahmedabad{
+    background-color: #F9C392;
+  }
+
+  .japan{
+    background-color: #DEF4FE;
+  }
+  .clear{
+    background: #ffffff;
+  }
+
+  .morning{
+    background-color: rgb(149, 149, 229);
+  }
+  .emorning{
+    background-color: rgb(231, 148, 90);
+  }
+  .general{
+    background-color: rgb(190, 114, 220);
+  }
+  .holiday{
+    background-color: rgba(76, 174, 227, 0.275);
+  }
+  .wss{
+    background-color: rgb(172, 233, 153);
+  }
+  .skill{
+    background-color: rgb(159, 228, 239);
+  }
+  .after{
+    background-color: rgb(237, 121, 198);
+  }
+  .mod{
+    background-color: rgb(235, 251, 142);
+  }.shadow{
+    background-color: rgb(82, 139, 118);
+  }
+  .leave{
+    background-color: rgb(223, 93, 46);
+  }
+.clear{
+  background-color: #ffffff;
+  background-color: transparent;
+  background: none;
+}
+  .weekends{
+    background-color: #D5CED6;
+    /* color: white; */
+  }
+
+  .selected {
+    background-color: rgb(205, 154, 154);
+  }
+  tr:hover {border-top: 2px solid black ;
+    border-bottom: 2px solid black ;;}
+     /* #D6EEEE;} */
+
+    
+     /**/
+.days{
+      /* transform: rotate(-90deg); */
+      height: 25px;
+    }
+
+    .cells,.dates,.days{
+      width: 12px;
+      /* font-size: 8px; */
+    }
+    
+    
+    .cells{
+      font-size: 9px;
+    }
+    .dates{
+      font-size: 10px;
+      /* border:none; */
+    }
+    .days{
+      font-size: 12px;
+      font-weight: bold;
+      /* border: none; */
+    }
+
+    .rowHead{
+      width: 80px;
+      font-size: 12px;
+    }
+    
+    .heading{
+        text-align: center;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        cursor: pointer;
+        -webkit-user-select: none;
+           -moz-user-select: none;
+            -ms-user-select: none;
+                user-select: none;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        padding: 5px 8px;
+      }
+      .clicked{
+        background-color: red;
+        color: white;
+      }
+        
+      .btn-lg {
+        font-size: 10px;
+        line-height: 1.33;
+        border-radius: 6px;
+      }
+      
+      .btn-primary {
+        color: #fff;
+        background-color: #428bca;
+        border-color: #357ebd;
+      }
+      
+      .btn-primary:hover,
+      .btn-primary:focus,
+      .btn-primary:active,
+      .btn-primary.active,
+      .open .dropdown-toggle.btn-primary {
+        color: #fff;
+        background-color: #3276b1;
+        border-color: #285e8e;
+      }
+      
+      /***********************
+        ROUND BUTTONS
+      ************************/
+       .round {
+        border-radius: 24px;
+      }
+      
+      /***********************
+        CUSTON BTN VALUES
+      ************************/
+      
+       .btn {
+        padding: 7px 12px;
+        border: 0 none;
+        font-weight: 200;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      .btn:focus, .btn:active:focus, .btn.active:focus {
+        outline: 0 none;
+      }
+      
+      .btn-primary {
+        background: #0099cc;
+        color: #000;
+      }
+      .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+        background: #33a6cc;
+      }
+      .btn-primary:active, .btn-primary.active {
+        background: #007299;
+        box-shadow: none;
+      }
+    
+      .ms{
+        background: #ffffff;
+      }
+    
+    .gs{ 
+        background: #ffffff;
+    }
+    .ws{
+        background: #ffffff;}
+        .sd{
+            background : #ffffff;
+        }
+    
+        .outerdiv{
+            text-align: center;
+            padding: 0px;
+           
+        }
+    
+        button{
+          padding: 1px;
+          font-weight: 400;
+        }
+        .btn {
+          font-weight: bolder;
+        }
+    .highlighted{
+        background-color: #47243B;
+        z-index: 10;
+        /* border: solid; */
+    }
+    .addBorder{
+      border-left:2px solid black;
+      border-right:2px solid black;
+    }
+    .chighlighted{
+        /* border-left: 3px ridge rgba(211, 220, 50, .6);
+        border-right: px ridge rgba(211, 220, 50, .6); */
+        /* border-left: thick double black;
+        border-right: thick double black; */
+        border-left: 2px solid black ;
+        border-right: 2px solid black ;
+        }
+
+        .days, .dates{
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12px;
+            font-weight: bolder;
+            height: auto;
+          }
+      
+          .weekdays{
+            background-color:#82C7DF;
+            /* color: white; */
+          }    
+
+          .calendar{
+            font-weight: bolder;
+          }
+
+          /* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+      
