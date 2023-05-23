@@ -1,6 +1,5 @@
-
 import "./PrepareScheduleTable.css";
-
+import ShiftJSONCreation from "./JSONs/ShiftJSONCreation";
 import { useState, useEffect } from "react";
 // import { Link } from "react-router-dom";
 // import ViewSchedule from "../../Pages/ViewSchedule";
@@ -9,13 +8,13 @@ import { useState, useEffect } from "react";
 export default function PrepareScheduleTable() {
   document.title = "Prepare Schedule";
   // const validations = ["EM", "M", "G","A","W","SD","L","H","MD","S"];
-   //month dropdown
- const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth()+1 );
- const [selectedYear, setSelectedYear] = useState('2023');
-  const m = selectedMonth-1;
+  //month dropdown
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
+  const [selectedYear, setSelectedYear] = useState("2023");
+  const m = selectedMonth - 1;
   const y = selectedYear;
   const days = new Date(y, m + 1, 0).getDate();
-  console.log(days);
+  // console.log(days);
   const daysArray = [];
   const daysArr = [];
 
@@ -28,43 +27,63 @@ export default function PrepareScheduleTable() {
     });
 
     daysArray.push(dateStr);
+    // console.log(daysArray);
     daysArr.push(dayOfWeek);
   }
-  // const months = [
-  //   "Jan",
-  //   "Feb",
-  //   "Mar",
-  //   "Apr",
-  //   "May",
-  //   "Jun",
-  //   "July",
-  //   "Aug",
-  //   "Sep",
-  //   "Oct",
-  //   "Nov",
-  //   "Dec",
-  // ];
+  const employees = [
+    "Liang Shi (JPN)",
+    "Rajiv Madassery (BLR)",
+    "Ashima Singhal",
+    "Shreyashi Bhowmick",
+    "Roushan Kumar",
+    "Samarpita Pattnaik",
+    "Mounika Grandhi",
+    "Madhavi Pilaka",
+    "Abdul Shad",
+    "Hariprasad AS",
+    "Sheetal Shreya",
+    "Pallavi Sinha",
+    "Nalla Swathi Rekha",
+    "Jyothi Priya Kalluri",
+    "Manoj Nair (PUN)",
+    "Tarun Singh",
+    "Princy Katlana",
+    "Jitendra Buge",
+    "Nitin Darade",
+    "Manish Jadhav",
+    "Rahul Kajve",
+    "Abhishek Khandagale",
+    "Varada Kolhe",
+    "Pradeep Pawar",
+    "Suhas Phansalkar",
+    "Jophy Joe",
+    "Anuradha Narendra",
+    "Manoj Kumar Goyal (AHM)",
+    "Shantanu Singh",
+    "Sushmita Gour",
+    "Mitrajsinh Jadeja",
+    "Dhruti Badiani",
+    "Urja Rajpara",
+  ];
   function WeekendCSS() {
     var CIs = [];
     const dates = document.querySelectorAll(".days");
     dates.forEach((date) => {
-      if (date.innerHTML.indexOf("S") !== -1)
+      if (date.innerHTML.indexOf("S") !== -1) {
         // date.innerHTML.includes("Sat")
-       {
         var ci = date.cellIndex;
         CIs.push(ci);
-        
       }
-    })
-    console.log(CIs);
+    });
+    // console.log(CIs);
     const datesCSS = document.querySelectorAll(".dates");
     datesCSS.forEach((date) => {
       var c = date.cellIndex;
-      if(CIs.includes(c)){
+      if (CIs.includes(c)) {
         date.classList.add("weekends");
       }
-    })
-   
+    });
+
     const boxes = document.querySelectorAll(".cells");
 
     for (var i = 0; i < CIs.length; i++) {
@@ -78,7 +97,7 @@ export default function PrepareScheduleTable() {
       });
 
       const ddays = document.querySelectorAll(".days");
-      for ( i = 0; i < CIs.length; i++) {
+      for (i = 0; i < CIs.length; i++) {
         ddays.forEach((box) => {
           var c = box.cellIndex;
           if (CIs.includes(c)) {
@@ -90,7 +109,7 @@ export default function PrepareScheduleTable() {
         });
       }
       const ddates = document.querySelectorAll(".dates");
-      for ( i = 0; i < CIs.length; i++) {
+      for (i = 0; i < CIs.length; i++) {
         ddates.forEach((box) => {
           var c = box.cellIndex;
           if (CIs.includes(c)) {
@@ -103,10 +122,48 @@ export default function PrepareScheduleTable() {
       }
     }
   }
+  const Responses = ShiftJSONCreation();
+  // console.log(Responses);
+  var processed_response = [];
+  //formatting the date
+  Responses.forEach((response) => {
+    const dateFull = response["date"];
+    // console.group(dateFull);
+    const dsub = dateFull.substring(8, 10);
+    // console.log(dsub);
+    var x = parseInt(dsub, 10);
+    // var x = dsub;
+    console.log(x);
+    const obj = {
+      associate: response['name'],
+      day: x,
+      shift: response['shift'],
+    };
+    processed_response.push(obj);
+    // console.log(obj);
+  });
+  const rows = employees;
+  const headers = Array.from({ length: days }, (_, i) => i + 1);
+  //Prepopulate the table with leaves and holidays
+  const cellData = processed_response.reduce(
+    (acc, { associate, day, shift }) => {
+      const rowIndex = rows.indexOf(associate);
+      // console.log("name : ",associate);
+      // console.log("rowIndex : ",rowIndex);
+      const colIndex = headers.indexOf(day) + 1;
+      // console.log(day);
+      // console.log("colIndex : ",colIndex);
+      acc[`${rowIndex}-${colIndex}`] = shift;
+      // console.log("acc : ",acc);
+      return acc;
+    },
+    {}
+  )
+  // console.log(cellData);
   useEffect(() => {
     //Mark Holiday Colours (Sat & Sun) //Inside useeffect
     WeekendCSS();
-
+    addCSS();
     // /Colour code location wise //useeffect
     const emps = document.querySelectorAll(".city");
     emps.forEach((emp) => {
@@ -160,41 +217,7 @@ export default function PrepareScheduleTable() {
     });
   });
 
-  const employees = [
-    "Liang Shi (JPN)",
-    "Rajiv Madassery (BLR)",
-    "Ashima Singhal",
-    "Shreyashi Bhowmick",
-    "Roushan Kumar",
-    "Samarpita Pattnaik",
-    "Mounika Grandhi",
-    "Madhavi Pilaka",
-    "Abdul Shad",
-    "Hariprasad AS",
-    "Sheetal Shreya",
-    "Pallavi Sinha",
-    "Nalla Swathi Rekha",
-    "Jyothi Priya Kalluri",
-    "Manoj Nair (PUN)",
-    "Tarun Singh",
-    "Princy Katlana",
-    "Jitendra Buge",
-    "Nitin Darade",
-    "Manish Jadhav",
-    "Rahul Kajve",
-    "Abhishek Khandagale",
-    "Varada Kolhe",
-    "Pradeep Pawar",
-    "Suhas Phansalkar",
-    "Jophy Joe",
-    "Anuradha Narendra",
-    "Manoj Kumar Goyal (AHM)",
-    "Shantanu Singh",
-    "Sushmita Gour",
-    "Mitrajsinh Jadeja",
-    "Dhruti Badiani",
-    "Urja Rajpara",
-  ];
+  
 
   const [btnState, bSelectedState] = useState("");
 
@@ -234,16 +257,16 @@ export default function PrepareScheduleTable() {
         // console.log((day.toString()).length);
         if (day.length === 1) {
           day = "0" + day;
-          console.log("l=1");
+          // console.log("l=1");
         }
         const year = y;
         var month = (m + 1).toString();
         if (month.length === 1) {
           month = "0" + month;
-          console.log("m=1");
+          // console.log("m=1");
         }
         const day_formatted = year + "-" + month + "-" + day;
-        console.log(day_formatted);
+        // console.log(day_formatted);
 
         const rec = {
           employee_id: cell.parentNode.rowIndex - 1,
@@ -257,62 +280,62 @@ export default function PrepareScheduleTable() {
   }
 
   //  useeffect
-  useEffect (() => {
-    const cells = document.querySelectorAll('.symbols');
-      cells.forEach((cell) =>{
-          if (cell.textContent === "M") {
-              cell.className = "";
-              cell.classList.add("symbols");
-              cell.classList.add("morning");
-            }
-            if (cell.textContent === "EM") {
-              cell.className = "";
-              cell.classList.add("symbols");
-              cell.classList.add("emorning");
-            }
-            if (cell.textContent === "A") {
-              cell.className = "";
-              cell.classList.add("symbols");
-              cell.classList.add("after");
-            }
-            if (cell.textContent === "SD") {
-              cell.className = "";
-              cell.classList.add("symbols");
-              cell.classList.add("skill");
-            }
-            if (cell.textContent === "L") {
-              cell.className = "";
-              cell.classList.add("symbols");
-              cell.classList.add("leave");
-            }
-            if (cell.textContent === "MD") {
-              cell.className = "";
-              cell.classList.add("symbols");
-              cell.classList.add("mod");
-            }
-            if (cell.textContent === "G") {
-              cell.className = "";
-              cell.classList.add("symbols");
-              cell.classList.add("general");
-            }
-            if (cell.textContent === "S") {
-              cell.className = "";
-              cell.classList.add("symbols");
-              cell.classList.add("shadowing");
-              cell.classList.add("shadow");
-            }
-            if (cell.textContent === "HS") {
-              cell.className = "";
-              cell.classList.add("symbols");
-              cell.classList.add("holiday");
-            }
-            if (cell.textContent === "W") {
-              cell.className = "";
-              cell.classList.add("symbols");
-              cell.classList.add("wss");
-            }
-      })
-  },[]);
+  useEffect(() => {
+    const cells = document.querySelectorAll(".symbols");
+    cells.forEach((cell) => {
+      if (cell.textContent === "M") {
+        cell.className = "";
+        cell.classList.add("symbols");
+        cell.classList.add("morning");
+      }
+      if (cell.textContent === "EM") {
+        cell.className = "";
+        cell.classList.add("symbols");
+        cell.classList.add("emorning");
+      }
+      if (cell.textContent === "A") {
+        cell.className = "";
+        cell.classList.add("symbols");
+        cell.classList.add("after");
+      }
+      if (cell.textContent === "SD") {
+        cell.className = "";
+        cell.classList.add("symbols");
+        cell.classList.add("skill");
+      }
+      if (cell.textContent === "L") {
+        cell.className = "";
+        cell.classList.add("symbols");
+        cell.classList.add("leave");
+      }
+      if (cell.textContent === "MD") {
+        cell.className = "";
+        cell.classList.add("symbols");
+        cell.classList.add("mod");
+      }
+      if (cell.textContent === "G") {
+        cell.className = "";
+        cell.classList.add("symbols");
+        cell.classList.add("general");
+      }
+      if (cell.textContent === "S") {
+        cell.className = "";
+        cell.classList.add("symbols");
+        cell.classList.add("shadowing");
+        cell.classList.add("shadow");
+      }
+      if (cell.textContent === "HS") {
+        cell.className = "";
+        cell.classList.add("symbols");
+        cell.classList.add("holiday");
+      }
+      if (cell.textContent === "W") {
+        cell.className = "";
+        cell.classList.add("symbols");
+        cell.classList.add("wss");
+      }
+    });
+  }, []);
 
   function checkShift(cell, shift) {
     if (shift === "M") {
@@ -404,153 +427,221 @@ export default function PrepareScheduleTable() {
     });
   });
 
-  //shift legends 
-  const symbols =  ["EM", "M", "G","A","W","SD","L","HS","MD","S"];
-  const meanings = ["Early Morning Shift","Morning Shift","General Shift","Afternoon Shift","Weekend Shift","Skill Day","Leave","Holiday Shift","Manager on Duty","Shadowing"]
+  //shift legends
+  const symbols = ["EM", "M", "G", "A", "W", "SD", "L", "HS", "MD", "S"];
+  const meanings = [
+    "Early Morning Shift",
+    "Morning Shift",
+    "General Shift",
+    "Afternoon Shift",
+    "Weekend Shift",
+    "Skill Day",
+    "Leave",
+    "Holiday Shift",
+    "Manager on Duty",
+    "Shadowing",
+  ];
 
-// console.log(selectedMonth);
-    useEffect(() => {
-      // Populate dropdown with 12 months
-      const months = [
-        { value: 1, label: 'January' },
-        { value: 2, label: 'February' },
-        { value: 3, label: 'March' },
-        { value: 4, label: 'April' },
-        { value: 5, label: 'May' },
-        { value: 6, label: 'June' },
-        { value: 7, label: 'July' },
-        { value: 8, label: 'August' },
-        { value: 9, label: 'September' },
-        { value: 10, label: 'October' },
-        { value: 11, label: 'November' },
-        { value: 12, label: 'December' },
-      ];
+  // console.log(selectedMonth);
+  useEffect(() => {
+    // Populate dropdown with 12 months
+    const months = [
+      { value: 1, label: "January" },
+      { value: 2, label: "February" },
+      { value: 3, label: "March" },
+      { value: 4, label: "April" },
+      { value: 5, label: "May" },
+      { value: 6, label: "June" },
+      { value: 7, label: "July" },
+      { value: 8, label: "August" },
+      { value: 9, label: "September" },
+      { value: 10, label: "October" },
+      { value: 11, label: "November" },
+      { value: 12, label: "December" },
+    ];
 
-      const years = [
-        {value: 2023, label: '2023'},
-        {value: 2024, label: '2024'},
-        {value: 2025, label: '2025'},
-        {value: 2026, label: '2026'},
-      ]
-  
-      const dropdown = document.getElementById('month-dropdown');
-      months.forEach(month => {
-        const option = document.createElement('option');
-        option.value = month.value;
-        option.text = month.label;
-        dropdown.appendChild(option);
-      });
-  
-      // Set default value to current month
-      dropdown.value = selectedMonth;
+    const years = [
+      { value: 2023, label: "2023" },
+      { value: 2024, label: "2024" },
+      { value: 2025, label: "2025" },
+      { value: 2026, label: "2026" },
+    ];
 
-      const dropdownY = document.getElementById('year-dropdown');
-      years.forEach(year => {
-        const option = document.createElement('option');
-        option.value = year.value;
-        option.text = year.label;
-        dropdownY.appendChild(option);
-      });
+    const dropdown = document.getElementById("month-dropdown");
+    months.forEach((month) => {
+      const option = document.createElement("option");
+      option.value = month.value;
+      option.text = month.label;
+      dropdown.appendChild(option);
+    });
 
-      
-      
-    }, []);
-    // tooltip function
-// function getShift(value){
-//   if(value == "G")
-//   {
-//     return("General Shift");
-//   }
-//   else if(value == "EM")
-//   {
-//     return("Early Morning Shift");
-//   }
-//   else if(value == "M")
-//   {
-//     return("Morning Shift");
-//   }
-//   else if(value == "A")
-//   {
-//     return("Afternoon Shift");
-//   }
-//   else if(value == "W")
-//   {
-//     return("Weekend Shift");
-//   }
-//   else if(value == "SD")
-//   {
-//     return("Skill Day");
-//   }
-//   else if(value == "L")
-//   {
-//     return("Leave");
-//   }
-//   else if(value == "HS")
-//   {
-//     return("Holiday Shift");
-//   }
-//   else if(value == "MD")
-//   {
-//     return("Manager on Duty");
-//   }
-//   else if(value == "S")
-//   {
-//     return("Shadowing");
-//   }
-//   else if(value == "SaaS")
-//   {
-//     return("SaaS Shift");
-//   }
-// }
+    // Set default value to current month
+    dropdown.value = selectedMonth;
 
-function handleYearChange(event){
-  const newSelectedYear = parseInt(event.target.value);
-  setSelectedYear(newSelectedYear);
-  const cells = document.querySelectorAll(".cells");
-      cells.forEach((cell) => {
-        cell.innerHTML = "";
-        cell.className = "";
-        cell.classList.add("cells");
-        // WeekendCSS();
-
-      });
-      const datecells = document.querySelectorAll(".dates");
-      datecells.forEach((date) =>{
-        date.className ="";
-        date.classList.add("dates");
-      })
-
-      const daycells = document.querySelectorAll(".days");
-      daycells.forEach((day) =>{
-        day.className ="";
-        day.classList.add("days");
-      })
-}
-  
-    function handleMonthChange(event) {
-      const newSelectedMonth = parseInt(event.target.value);
-      setSelectedMonth(newSelectedMonth);
-      const cells = document.querySelectorAll(".cells");
-      cells.forEach((cell) => {
-        cell.innerHTML = "";
-        cell.className = "";
-        cell.classList.add("cells");
-        // WeekendCSS();
-
-      });
-      const datecells = document.querySelectorAll(".dates");
-      datecells.forEach((date) =>{
-        date.className ="";
-        date.classList.add("dates");
-      })
-
-      const daycells = document.querySelectorAll(".days");
-      daycells.forEach((day) =>{
-        day.className ="";
-        day.classList.add("days");
-      })
-      console.log(`Selected month: ${newSelectedMonth}`);
+    const dropdownY = document.getElementById("year-dropdown");
+    years.forEach((year) => {
+      const option = document.createElement("option");
+      option.value = year.value;
+      option.text = year.label;
+      dropdownY.appendChild(option);
+    });
+  }, []);
+  // tooltip function
+  function getShift(value){
+    if(value === "G")
+    {
+      return("General Shift");
     }
+    else if(value === "EM")
+    {
+      return("Early Morning Shift");
+    }
+    else if(value === "M")
+    {
+      return("Morning Shift");
+    }
+    else if(value === "A")
+    {
+      return("Afternoon Shift");
+    }
+    else if(value === "W")
+    {
+      return("Weekend Shift");
+    }
+    else if(value === "SD")
+    {
+      return("Skill Day");
+    }
+    else if(value === "L")
+    {
+      return("Leave");
+    }
+    else if(value === "HS")
+    {
+      return("Holiday Shift");
+    }
+    else if(value === "MD")
+    {
+      return("Manager on Duty");
+    }
+    else if(value === "S")
+    {
+      return("Shadowing");
+    }
+    else if(value === "SaaS")
+    {
+      return("SaaS Shift");
+    }
+  }
+
+  function handleYearChange(event) {
+    const newSelectedYear = parseInt(event.target.value);
+    setSelectedYear(newSelectedYear);
+    const cells = document.querySelectorAll(".cells");
+    cells.forEach((cell) => {
+      cell.innerHTML = "";
+      cell.className = "";
+      cell.classList.add("cells");
+      // WeekendCSS();
+    });
+    const datecells = document.querySelectorAll(".dates");
+    datecells.forEach((date) => {
+      date.className = "";
+      date.classList.add("dates");
+    });
+
+    const daycells = document.querySelectorAll(".days");
+    daycells.forEach((day) => {
+      day.className = "";
+      day.classList.add("days");
+    });
+  }
+
+  function handleMonthChange(event) {
+    const newSelectedMonth = parseInt(event.target.value);
+    setSelectedMonth(newSelectedMonth);
+    const cells = document.querySelectorAll(".cells");
+    cells.forEach((cell) => {
+      cell.innerHTML = "";
+      cell.className = "";
+      cell.classList.add("cells");
+      // WeekendCSS();
+    });
+    const datecells = document.querySelectorAll(".dates");
+    datecells.forEach((date) => {
+      date.className = "";
+      date.classList.add("dates");
+    });
+
+    const daycells = document.querySelectorAll(".days");
+    daycells.forEach((day) => {
+      day.className = "";
+      day.classList.add("days");
+    });
+    // console.log(`Selected month: ${newSelectedMonth}`);
+  }
+  //CSS for prepopulated values
+  function addCSS() {
+    const cells = document.querySelectorAll(".cells");
+    cells.forEach((cell) => {
+      if (cell.textContent === "M") {
+        cell.className = "";
+        cell.classList.add("cells");
+        cell.classList.add("morning");
+      }
+      if (cell.textContent === "EM") {
+        cell.className = "";
+        cell.classList.add("cells");
+        cell.classList.add("emorning");
+      }
+      if (cell.textContent === "A") {
+        cell.className = "";
+        cell.classList.add("cells");
+        cell.classList.add("after");
+      }
+      if (cell.textContent === "SD") {
+        cell.className = "";
+        cell.classList.add("cells");
+        cell.classList.add("skill");
+      }
+      if (cell.textContent === "L") {
+        cell.className = "";
+        cell.classList.add("cells");
+        cell.classList.add("leave");
+      }
+      if (cell.textContent === "MD") {
+        cell.className = "";
+        cell.classList.add("cells");
+        cell.classList.add("mod");
+      }
+      if (cell.textContent === "G") {
+        cell.className = "";
+        cell.classList.add("cells");
+        cell.classList.add("general");
+      }
+      if (cell.textContent === "S") {
+        cell.className = "";
+        cell.classList.add("cells");
+        cell.classList.add("shadow");
+      }
+      if (cell.textContent === "HS" ) {
+        cell.className = "";
+        cell.classList.add("cells");
+        cell.classList.add("holiday");
+      }
+      if (cell.textContent === "W") {
+        cell.className = "";
+        cell.classList.add("cells");
+        cell.classList.add("wss");
+      }
+      if (cell.textContent === "H" ) {
+        cell.className = "";
+        cell.classList.add("cells");
+        cell.classList.add("holidayNS");
+        // cell.classList.add("shadow");
+      }
+    });
+  }
 
 
   return (
@@ -648,12 +739,12 @@ function handleYearChange(event){
       </div>
       <div className="row">
         <div className="column1">
-         
           <table className=" prepareShiftTable ">
             <thead>
               <tr className="tableRow stick">
                 <th className="tableHead ">
-                  <select className="monthDD"
+                  <select
+                    className="monthDD"
                     id="month-dropdown"
                     onChange={handleMonthChange}
                   ></select>
@@ -667,7 +758,8 @@ function handleYearChange(event){
               </tr>
               <tr className="tableRow">
                 <th className="tableHead">
-                <select className="yearDD"
+                  <select
+                    className="yearDD"
                     id="year-dropdown"
                     onChange={handleYearChange}
                   ></select>
@@ -680,19 +772,18 @@ function handleYearChange(event){
                 {/* {validations.map((v) => (
                   <td className="stick2">{v}</td>
                 ))} */}
-                
-               
               </tr>
             </thead>
             <tbody>
+              {/* renderTableBody() */}
               {employees.map((emp, empID) => (
-                <tr className="tableRow rowss" key={empID}>
+                <tr className="tableRow rowss" key={emp}>
                   <th key={empID} className="city rowHead ">
                     {emp}
                   </th>
-                  {daysArray.map((columnIndex) => (
+                  {headers.map((columnIndex) => (
                     <td
-                      key={columnIndex}
+                    key={`${empID}-${columnIndex}`}
                       onClick={(e) => {
                         const cell = e.target;
                         const cellValue = cell.innerHTML;
@@ -710,7 +801,6 @@ function handleYearChange(event){
                           cell.innerHTML = btnState;
                           const shift = cell.innerHTML;
                           checkShift(cell, shift);
-                        
 
                           //row validation variables
                           var SD = 0;
@@ -742,7 +832,6 @@ function handleYearChange(event){
                             ),
                             (cell) => cell.innerHTML
                           );
-                        
 
                           //Row-wise validations
                           for (var i = 0; i < rowValues.length; i++) {
@@ -833,16 +922,14 @@ function handleYearChange(event){
                         }
                       }}
                       className="cells"
-                      // title={getShift(cellData[`${rowIndex}-${colIndex}`] || "")}
-                    ></td>
-                    
+                      
+                    >{cellData[`${empID}-${columnIndex}`] || ""}</td>
                   ))}
-                  
+
                   {/* row-wise validations */}
                   {/* {validations.map(()=>(
                     <td className="cells stick validation">X</td>
                   ))} */}
-                  
                 </tr>
               ))}
               {/* {validations.map((v) => (
@@ -859,35 +946,29 @@ function handleYearChange(event){
           </table>
         </div>
         <div className="column2">
-        
           <table className="shiftLegendTable">
             <thead>
-              <tr className="tableRow" >
-                <th colSpan={2} className="tableHead">Shift legends</th>
-              </tr>
               <tr className="tableRow">
-                <th className="tableHead" style={{padding:5+"px"}}>Symbol</th>
-                <th className="tableHead" style={{padding:5+"px"}}>Shift</th>
+                <th colSpan={2} className="tableHead">
+                  Shift legends
+                </th>
               </tr>
             </thead>
             <tbody>
-            {symbols.map((symbol,index) =>(
-                         <tr key={index} className="tableRow">
-                            <td className="symbols">{symbol}</td>
-                            <td className="symbols">{meanings[index]}</td>
-                         </tr>
-
-                    ))}
+              {symbols.map((symbol, index) => (
+                <tr key={index} className="tableRow">
+                  <td className="symbols">{symbol}</td>
+                  <td style ={{textAlign:'left'}}className="symbols">{meanings[index]}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
-       
       </div>
-      
-      <button className="submitShifts" onClick={onSubmitHandler}>Submit</button>
-      </div>
-      
-    
-    
+
+      <button className="submitShifts" onClick={onSubmitHandler}>
+        Submit
+      </button>
+    </div>
   );
 }

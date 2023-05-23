@@ -15,7 +15,11 @@ th, td, tr{
   th .validationsBottom{
     width : 5px;
   }
-
+  .symbols{
+    padding:3px;
+    font-weight: bold;
+  }
+  
   .vItems{
     width: 12px;
   }

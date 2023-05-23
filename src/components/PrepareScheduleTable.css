@@ -125,6 +125,9 @@ th, td, tr{
   .holiday{
     background-color: rgb(155, 193, 214);
   }
+  .holidayNS{
+    background-color: rgb(186, 217, 151);
+  }
   .wss{
     background-color: rgb(190, 233, 177);
   }

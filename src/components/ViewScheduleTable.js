@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import "./ViewScheduleTable.css";
-import "./PrepareScheduleTable.css";
+// import "./PrepareScheduleTable.css";
 import Responses from "./Responses";
 
 function ViewScheduleTable() {
@@ -395,7 +395,7 @@ function ViewScheduleTable() {
       shift: response[0].shift,
     };
     processed_response.push(obj);
-    console.log(obj);
+    // console.log(obj);
   });
 
   console.log(processed_response);
@@ -447,8 +447,6 @@ function ViewScheduleTable() {
 
   return (
     <div className="viewScheduleComponent">
-      {/* <h5>View Schedule</h5> */}
-      {/* <div className='heading'>  {y} </div> */}
 
       <div className="row">
         <div className="column1">
@@ -483,20 +481,13 @@ function ViewScheduleTable() {
                   Shift legends
                 </th>
               </tr>
-              <tr className="tableRow">
-                <th className="tableHead" style={{ padding: 5 + "px" }}>
-                  Symbol
-                </th>
-                <th className="tableHead" style={{ padding: 5 + "px" }}>
-                  Shift
-                </th>
-              </tr>
+             
             </thead>
             <tbody>
               {symbols.map((symbol, index) => (
                 <tr key={index} className="tableRow">
-                  <td className="symbols">{symbol}</td>
-                  <td className="symbols">{meanings[index]}</td>
+                  <td style={{padding:3+'px',fontWeight:'bold'}}className="symbols">{symbol}</td>
+                  <td style ={{textAlign:'left',padding:3+'px',fontWeight:'bold'}} className="symbols">{meanings[index]}</td>
                 </tr>
               ))}
             </tbody>
