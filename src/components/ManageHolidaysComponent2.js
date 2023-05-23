@@ -106,22 +106,22 @@ function ManageHolidaysTest()
                           <option value="Thrusday">Thursday</option>
                           <option value="Friday">Friday</option>
                         </select> */}
-                        <lable style={{ display: "flex", alignItems: "center" }}>
+                        <label style={{ display: "flex", alignItems: "center" }}>
                         <input type="checkbox" name="Banglore" checked={formData.Banglore} onChange={formChangehandler}></input>
                         Banglore
-                        </lable>
-                        <lable style={{ display: "flex"}}>
+                        </label>
+                        <label style={{ display: "flex"}}>
                         <input type="checkbox" name="Pune" checked={formData.Pune} onChange={formChangehandler}></input>
                         Pune
-                        </lable>
-                        <lable style={{ display: "flex"}}>
+                        </label>
+                        <label style={{ display: "flex"}}>
                         <input type="checkbox" name="Ahmedabad" checked={formData.Ahmedabad} onChange={formChangehandler}></input>
                         Ahmedabad
-                        </lable>
-                        <lable style={{ display: "flex"}}>
+                        </label>
+                        <label style={{ display: "flex"}}>
                         <input type="checkbox" name="Japan" checked={formData.Japan} onChange={formChangehandler}></input>
                         Japan
-                        </lable><br/>
+                        </label><br/>
                         {/* <input type="text" name="location" value={formData.location} placeholder="Locations" onChange={checkboxHandler}/> */}
                         <center><input type="submit" value="Add"/></center>
                     </form>
@@ -148,8 +148,8 @@ function ManageHolidaysTest()
       </tr>
     </thead>
     <tbody>
-        {tableData.map((item)=>(
-          <tr className="TableRow">
+        {tableData.map((item,index)=>(
+          <tr key = {index} className="TableRow">
           <td className="elements">{item.type}</td>
           <td className="elements">{new Date(item.date).toLocaleDateString(undefined, {day:'2-digit',month:'short',year:'numeric'})}</td>
           <td className="elements">{new Date(item.date).toLocaleDateString(undefined, {weekday: 'long'})}</td>
