@@ -18,6 +18,7 @@ import ViewLeavePlans from './Pages/AdminView/ViewLeavePlans';
 import MyLeavePlan from './Pages/AdminView/MyLeavePlan';
 import ManageAssociates from './Pages/AdminView/ManageAssociates';
 import MyScheduleA from './Pages/AdminView/MyScheduleA';
+import Table from './components/Table';
 // import { Route } from 'react-router-dom';
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       
       <Routes>
         <Route path='/' element = {<Login />}></Route>
+        <Route path='/test' element={<Table></Table>}/>
         <Route path='/holidayList'  element={<AssociateElement><ViewHolidays/></AssociateElement>}></Route>
         <Route path='/schedule'  element={<AssociateElement><ViewSchedule /></AssociateElement>}></Route>
         <Route path='/homescreen' element={<AssociateElement><LandingPage /></AssociateElement>}></Route> 

@@ -3,13 +3,16 @@ import { useState } from "react";
 // import NavBarGlobalAdmin from "../../components/NavBarGlobalAdmin";
 import './Holidays.css';
 import "../Pages/AdminView/adminStyling.css";
+import DatePicker from "react-multi-date-picker";
+import { MdDeleteForever } from "react-icons/md";
 function LeavePlanComponent(){
-   
-        const [leaves, setLeaves] = useState({
+  const temp=[];
+  const [selectedDates, setSelectedDates] = useState([]);
+  const [leaves, setLeaves] = useState({
           name: "",
           type: "",
           date: "",
-          comments: "",
+          shift:'L'
         });
         const emps = [
           "Manoj Nair",
@@ -51,25 +54,25 @@ function LeavePlanComponent(){
             name: "Dhruti Badiani",
             type: "Sick Leave",
             date: "2023-05-11",
-            comments: "Viral Infection",
+            shift:'L'
           },
           {
             name: "Jyothi Priya Kalluri",
             type: "Casual Leave",
             date: "2023-05-18",
-            comments: "Personal work",
+            shift:'L'
           },
           {
             name: "Abdul Shad",
             type: "Vacation",
             date: "2023-05-20",
-            comments: "-",
+            shift:'L'
           },
           {
             name: "Jophy Joe",
             type: "Sick Leave",
             date: "2023-05-26",
-            comments: "Personal",
+            shift:'L'
           },
         ]);
         function formChangehandler(e) {
@@ -79,52 +82,53 @@ function LeavePlanComponent(){
         }
         function leaveshandler(e) {
           e.preventDefault();
-          console.log(leaves);
-          setTableData([...tableData, leaves]);
+          for(var i=0;i<selectedDates.length;i++)
+          {
+            const obj={
+              name:leaves.name,
+              type:leaves.type,
+              // date:selectedDates[i]
+              date:new Date(selectedDates[i]).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }),
+              shift:'L'
+            }
+            // console.log(obj)
+            temp.push(obj)
+            setTableData([...tableData,...temp])
+            // console.log("Table Data")
+            // console.log(tableData)
+          }
+          console.log(temp)
         }
+      function deleted()
+      {
+        alert("Are you sure??")
+      }
+
         return (
           <>
             {/* <NavBarGlobalAdmin /> */}
             <div className="mainDiv">
               <div className="leftColumn">
-               
-                  
-                    
                     <form className="inputForm" onSubmit={leaveshandler}>
                     <center>
                     <h2 className="formHeader">Apply For a leave</h2>
                     </center>
-                      <select name="name"  className="formInput" onChange={formChangehandler}>
-                        <option>Name</option>
-                        {emps.map((emp) => (
-                          <option value={emp}>{emp}</option>
+                      <select name="name"  className="formInput" onChange={formChangehandler} required>
+                        <option value="">Name</option>
+                        {emps.map((emp,index) => (
+                          <option key={index} value={emp}>{emp}</option>
                         ))}
                       </select>
-                      <select  className="formInput" name="type" onChange={formChangehandler}>
-                        <option>Leave Type</option>
+                      <select  className="formInput" name="type" onChange={formChangehandler} required>
+                        <option value="">Leave Type</option>
                         <option value="Casual Leave">Casual Leave</option>
                         <option value="Sick Leave">Sick Leave</option>
                         <option value="vacation">Vacation</option>
-                        <option value="offQ">Off Queue</option>
-                        {/* <option valu="others">Other</option> */}
+                        <option valu="Off Queue">Off Queue</option>
                       </select>
-                      {/* <input type="text" placeholder="Leave Type" value={leaves.type} name="type" onChange={formChangehandler}></input> */}
-                      <input
-                        type="date"
-                        className="formInput"
-                        placeholder="Date"
-                        value={leaves.to_date}
-                        name="date"
-                        onChange={formChangehandler}
-                      ></input>
-                      <input
-                        type="text"
-                        className="formInput"
-                        placeholder="Comments (if any)"
-                        value={leaves.comments}
-                        name="comments"
-                        onChange={formChangehandler}
-                      ></input>
+                      <label>Select the dates</label>
+                       <DatePicker value={selectedDates} onChange={(value) => setSelectedDates(value)} required/>
+                      <br/><br/>
                       <center>
                       <input className="submitButton" type="submit" value="Apply"></input>
                     </center>
@@ -143,16 +147,16 @@ function LeavePlanComponent(){
                         <th className="TableHeader">Associate Name</th>
                         <th className="TableHeader">Leave Type</th>
                         <th className="TableHeader">Date</th>
-                        <th className="TableHeader">Comments</th>
+                        <th className="TableHeader">Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {tableData.map((tabledata) => (
-                        <tr className="TableRow">
+                      {tableData.map((tabledata,index) => (
+                        <tr key={index} className="TableRow">
                           <td style={{fontWeight:'normal'}} className="elements">{tabledata.name}</td>
                           <td style={{fontWeight:'normal'}} className="elements">{tabledata.type}</td>
-                          <td style={{fontWeight:'normal'}} className="elements">{tabledata.date}</td>
-                          <td style={{fontWeight:'normal'}} className="elements">{tabledata.comments}</td>
+                          <td style={{fontWeight:'normal'}} className="elements">{new Date(tabledata.date).toLocaleDateString(undefined, {day:'2-digit',month:'short',year:'numeric'})}</td>
+                          <td className="elements"><MdDeleteForever onClick={deleted} style={{cursor:'pointer'}}/></td>
                         </tr>
                       ))}
                     </tbody>

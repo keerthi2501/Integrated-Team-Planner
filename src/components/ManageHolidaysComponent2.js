@@ -96,8 +96,8 @@ function ManageHolidaysTest()
     <div className="leftColumn" style={{ height: 100 + "vh" }}>
                     <form className="inputForm" onSubmit={HolidaydataHandler}>
                         <center><h2 className="formHeader">Add a New Holiday</h2></center><br/>
-                        <input className="formInput" type="text" name="type" value={formData.type} placeholder="Holiday Type" onChange={formChangehandler}/>
-                        <input className="formInput"  type="date" name="date" value={formData.date} placeholder="Date" onChange={formChangehandler}/>
+                        <input className="formInput" type="text" name="type" value={formData.type} placeholder="Holiday Type" onChange={formChangehandler} required/>
+                        <input className="formInput"  type="date" name="date" value={formData.date} placeholder="Date" onChange={formChangehandler} required/>
                         {/* <select className="formInput" name="day" onChange={formChangehandler}>
                           <option>Day</option>
                           <option value="Monday">Monday</option>
@@ -149,7 +149,7 @@ function ManageHolidaysTest()
     </thead>
     <tbody>
         {tableData.map((item,index)=>(
-          <tr key = {index} className="TableRow">
+          <tr key={index} className="TableRow">
           <td className="elements">{item.type}</td>
           <td className="elements">{new Date(item.date).toLocaleDateString(undefined, {day:'2-digit',month:'short',year:'numeric'})}</td>
           <td className="elements">{new Date(item.date).toLocaleDateString(undefined, {weekday: 'long'})}</td>

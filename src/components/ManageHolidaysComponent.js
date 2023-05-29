@@ -66,9 +66,9 @@ function ManageHolidaysComponent()
     <div className="leftColumn" style={{ height: 100 + "vh" }}>
                     <form className="inputForm" onSubmit={HolidaydataHandler}>
                         <center><h2 className="formHeader">Add a New Holiday</h2></center><br/>
-                        <input className="formInput" type="text" name="type" value={formData.type} placeholder="Holiday Type" onChange={formChangehandler}/>
-                        <input className="formInput"  type="date" name="date" value={formData.date} placeholder="Date" onChange={formChangehandler}/>
-                        <select className="formInput" name="day" onChange={formChangehandler}>
+                        <input className="formInput" type="text" name="type" value={formData.type} placeholder="Holiday Type" onChange={formChangehandler} required/>
+                        <input className="formInput"  type="date" name="date" value={formData.date} placeholder="Date" onChange={formChangehandler} required/>
+                        <select className="formInput" name="day" onChange={formChangehandler} required>
                           <option>Day</option>
                           <option value="Monday">Monday</option>
                           <option value="Tuesday">Tuesday</option>
@@ -76,22 +76,22 @@ function ManageHolidaysComponent()
                           <option value="Thrusday">Thursday</option>
                           <option value="Friday">Friday</option>
                         </select>
-                        <lable style={{ display: "flex", alignItems: "center" }}>
-                        <input type="checkbox" name="Banglore" checked={checkboxValues.Banglore} onChange={checkboxHandler}></input>
+                        <label style={{ display: "flex", alignItems: "center" }}>
+                        <input type="checkbox" name="Banglore" checked={checkboxValues.Banglore} onChange={checkboxHandler} required></input>
                         Banglore
-                        </lable>
-                        <lable style={{ display: "flex"}}>
+                        </label>
+                        <label style={{ display: "flex"}}>
                         <input type="checkbox" name="Pune" checked={checkboxValues.Pune} onChange={checkboxHandler}></input>
                         Pune
-                        </lable>
-                        <lable style={{ display: "flex"}}>
+                        </label>
+                        <label style={{ display: "flex"}}>
                         <input type="checkbox" name="Ahmedabad" checked={checkboxValues.Ahmedabadh} onChange={checkboxHandler}></input>
                         Ahmedabad
-                        </lable>
-                        <lable style={{ display: "flex"}}>
+                        </label>
+                        <label style={{ display: "flex"}}>
                         <input type="checkbox" name="Japan" checked={checkboxValues.Japan} onChange={checkboxHandler}></input>
                         Japan
-                        </lable><br/>
+                        </label><br/>
                         {/* <input type="text" name="location" value={formData.location} placeholder="Locations" onChange={checkboxHandler}/> */}
                         <center><input type="submit" value="Add"/></center>
                     </form>
