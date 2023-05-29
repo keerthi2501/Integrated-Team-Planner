@@ -334,6 +334,11 @@ export default function PrepareScheduleTable() {
         cell.classList.add("symbols");
         cell.classList.add("wss");
       }
+      if (cell.textContent === "H") {
+        cell.className = "";
+        cell.classList.add("symbols");
+        cell.classList.add("holidayNS");
+      }
     });
   }, []);
 
@@ -428,7 +433,7 @@ export default function PrepareScheduleTable() {
   });
 
   //shift legends
-  const symbols = ["EM", "M", "G", "A", "W", "SD", "L", "HS", "MD", "S"];
+  const symbols = ["EM", "M", "G", "A", "W", "SD", "L", "HS", "MD", "S","H"];
   const meanings = [
     "Early Morning Shift",
     "Morning Shift",
@@ -440,6 +445,7 @@ export default function PrepareScheduleTable() {
     "Holiday Shift",
     "Manager on Duty",
     "Shadowing",
+    "Holiday"
   ];
 
   // console.log(selectedMonth);

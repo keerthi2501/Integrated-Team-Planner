@@ -10,7 +10,7 @@ function ViewScheduleTable() {
   //Today's date
   var dd = String(today.getDate()).padStart(2, "0");
   //shift legends
-  const symbols = ["EM", "M", "G", "A", "W", "SD", "L", "HS", "MD", "S"];
+  const symbols = ["EM", "M", "G", "A", "W", "SD", "L", "HS", "MD", "S","H"];
   const meanings = [
     "Early Morning Shift",
     "Morning Shift",
@@ -22,6 +22,7 @@ function ViewScheduleTable() {
     "Holiday Shift",
     "Manager on Duty",
     "Shadowing",
+    "Holiday"
   ];
 
   //styling the legends
@@ -81,6 +82,12 @@ function ViewScheduleTable() {
         cell.classList.add("cells");
         cell.classList.add("wss");
       }
+      if (cell.textContent === "H") {
+        cell.className = "";
+        cell.classList.add("cells");
+        cell.classList.add("holidayNS");
+      }
+      
     });
   }, []);
 
