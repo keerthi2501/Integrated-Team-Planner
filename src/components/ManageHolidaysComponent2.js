@@ -5,6 +5,8 @@ import { useState } from "react";
 import { BiEditAlt } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
 // import { Calendar } from "react-multi-date-picker/plugins";
+import Modal from 'react-modal';
+
 function ManageHolidaysTest()
 {
         const [formData, setFormData] = useState({
@@ -16,6 +18,8 @@ function ManageHolidaysTest()
         Ahmedabad:'',
         Japan:''
       });
+      const [modalIsOpen, setModalIsOpen] = useState(false);
+      const [selectedRow, setSelectedRow] = useState("");
     const [tableData, setTableData] = useState([
             {Banglore:'on',Pune:'on',Ahmedabad:'',Japan:'', date:'22-MAR-2023', day:'Wednesday',type:'Ugadi/Gudi Padva'},
             {Banglore:'on',Pune:'on',Ahmedabad:'on',Japan:'', date:'01-MAY-2023', day:'Monday',type:'May Day'},
@@ -91,6 +95,15 @@ function ManageHolidaysTest()
             // console.log(formData);
             // console.log(tableData);
         }
+    const handleEditClick = (row) => {
+        // alert("ok")
+        setSelectedRow(row);
+        setModalIsOpen(true);
+      };
+    function deleted()
+    {
+      alert("Are you sure ?");
+    }
   return (
     <div className="mainDiv" style={{ height: 100 + "vh" }}>
     <div className="leftColumn" style={{ height: 100 + "vh" }}>
@@ -158,20 +171,64 @@ function ManageHolidaysTest()
           {item.Ahmedabad=='on'?(<td className="elements" style={{align:'center',width:50+'px'}}><Ai.AiOutlineCheck /></td>):(<td className="elements" ></td>)}
           {item.Japan=='on'?(<td className="elements" style={{align:'center',width:50+'px'}}><Ai.AiOutlineCheck /></td>):(<td className="elements"></td>)}
           <td style={{fontWeight:'normal'}} className="elements">
-                        <BiEditAlt onClick={()=>{
-                          console.log("Edit");
-                        }} style={{cursor:'pointer'}}/>
+          <button style={{border:'none'}} onClick={() => handleEditClick(item)}><BiEditAlt/></button>
                     </td>
                     <td style={{fontWeight:'normal'}} className="elements">
-                        <MdDeleteForever onClick={()=>{
-                          console.log("Delete");
-                        }} style={{cursor:'pointer'}}/>
+                        <MdDeleteForever onClick={deleted} style={{cursor:'pointer'}}/>
                     </td>
           </tr>
         ))}
     </tbody>
     </table>
     </center>
+    <Modal
+      isOpen={modalIsOpen}
+      onRequestClose={()=>setModalIsOpen(false)}
+      style={{
+        content: {
+          position: 'absolute',
+          top: '25%',
+          left: '35%',
+          width: '28%',
+          height: '50%',
+          backgroundColor: '#fff',
+          border: '1px solid #ccc',
+          boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
+          textAlign:'center',
+        },
+      }}
+      >
+        {selectedRow && (<form className="form-style" style={{width:'97%',align:'center'}}>
+          <h2>Edit Details</h2>
+          <input className="formInput" type="text" value={selectedRow.type} 
+                onChange={(e) => setSelectedRow((prevRow) => ({...prevRow,type: e.target.value })) }>
+          </input>
+
+          <input className="formInput" type="date" value={selectedRow.date} 
+                onChange={(e) => setSelectedRow((prevRow) => ({...prevRow,date: e.target.value })) }>
+          </input>
+
+          <label style={{ display: "flex", alignItems: "center" }}>
+                        <input type="checkbox" name="Banglore" checked={formData.Banglore} onChange={formChangehandler}></input>
+                        Banglore
+                        </label>
+                        <label style={{ display: "flex"}}>
+                        <input type="checkbox" name="Pune" checked={formData.Pune} onChange={formChangehandler}></input>
+                        Pune
+                        </label>
+                        <label style={{ display: "flex"}}>
+                        <input type="checkbox" name="Ahmedabad" checked={formData.Ahmedabad} onChange={formChangehandler}></input>
+                        Ahmedabad
+                        </label>
+                        <label style={{ display: "flex"}}>
+                        <input type="checkbox" name="Japan" checked={formData.Japan} onChange={formChangehandler}></input>
+                        Japan
+           </label><br/>
+           <input type="submit" value="Update"></input> &nbsp;
+           <input type="submit" value="close"></input>
+        </form>)}
+
+    </Modal>
     </div>
     </div>
   );
