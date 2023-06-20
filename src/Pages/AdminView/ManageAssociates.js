@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBarGlobalAdmin from "../../components/NavBarGlobalAdmin";
 import "../../components/Holidays.css";
 import { useState } from "react";
@@ -6,83 +6,108 @@ import { BiEditAlt } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
 // import Popup from 'reactjs-popup';
 import Modal from "react-modal";
+import axios from "axios";
 
 function ManageAssociates() {
   const locations = ["Ahmedabad", "Bangalore", "Pune", "Japan"];
   const roles = ["Manager", "TL", "Intern"];
   const [selectedRow, setSelectedRow] = useState("");
   const [formData, setFormData] = useState({
-    associateName: "",
-    w3id: "",
-    managerName: "",
-    role: "",
+    name: "",
     location: "",
+    ibmId: "",
+    managerName: "",
+    role:""
   });
   const [tableData, setTableData] = useState([
     {
-      associateName: "Rajiv Madassery",
-      w3id: "rajiv@ibm.com",
-      managerName: "",
-      role: "Manager",
-      location: "Bangalore",
+        "id": 1,
+        "name": "Roushan",
+        "location": "Bengaluru",
+        "ibmId": "rk@gmail.com",
+        "managerName": "Rajiv Madassery",
+        "role": "Sp"
     },
     {
-      associateName: "Ashima Singhal",
-      w3id: "ashima@ibm.com",
-      managerName: "Rajiv Madassery",
-      role: "Associate",
-      location: "Bangalore",
+        "id": 2,
+        "name": "Princy",
+        "location": "Pune",
+        "ibmId": "rk@gmail.com",
+        "managerName": "Manoj Nair",
+        "role": "Sp"
     },
     {
-      associateName: "Shreyashi Bhowmick",
-      w3id: "shreyashi@ibm.com",
-      managerName: "Rajiv Madassery",
-      role: "Associate",
-      location: "Bangalore",
+        "id": 3,
+        "name": "Abhishek",
+        "location": "Pune",
+        "ibmId": "rk@gmail.com",
+        "managerName": "Manoj Nair",
+        "role": "Sp"
     },
     {
-      associateName: "Roushan Kumar",
-      w3id: "roushan@ibm.com",
-      managerName: "Rajiv Madassery",
-      role: "Associate",
-      location: "Bangalore",
+        "id": 4,
+        "name": "Ashima",
+        "location": "Bengaluru",
+        "ibmId": "rk@gmail.com",
+        "managerName": "Manoj Nair",
+        "role": "Sp"
     },
     {
-      associateName: "Samarpita Pattnaik",
-      w3id: "samarpita@ibm.com",
-      managerName: "Rajiv Madassery",
-      role: "Associate",
-      location: "Bangalore",
+        "id": 5,
+        "name": "Sushmita",
+        "location": "Ahmedabad",
+        "ibmId": "rk@gmail.com",
+        "managerName": "Manoj Nair",
+        "role": "Sp"
     },
     {
-      associateName: "Mounika Grandhi",
-      w3id: "mouni@ibm.com",
-      managerName: "Rajiv Madassery",
-      role: "Associate",
-      location: "Bangalore",
+        "id": 6,
+        "name": "Manish",
+        "location": "Pune",
+        "ibmId": "rk@gmail.com",
+        "managerName": "Manoj Nair",
+        "role": "Sp"
     },
     {
-      associateName: "Madhavi Pilaka",
-      w3id: "madhavi@ibm.com",
-      managerName: "Rajiv Madassery",
-      role: "Associate",
-      location: "Bangalore",
+        "id": 7,
+        "name": "Sheetal",
+        "location": "Bengaluru",
+        "ibmId": "rk@gmail.com",
+        "managerName": "Manoj Nair",
+        "role": "Sp"
     },
     {
-      associateName: "Hariprasad AS",
-      w3id: "hari@ibm.com",
-      managerName: "Rajiv Madassery",
-      role: "Team Lead",
-      location: "Bangalore",
-    },
-    {
-      associateName: "Sheetal Shreya",
-      w3id: "sheetal@ibm.com",
-      managerName: "Rajiv Madassery",
-      role: "Associate",
-      location: "Bangalore",
-    },
-  ]);
+        "id": 8,
+        "name": "Nitin",
+        "location": "Pune",
+        "ibmId": "rk@gmail.com",
+        "managerName": "Manoj Nair",
+        "role": "Sp"
+    }
+]);
+var [testtableData,settesttableData]=useState([]);
+
+useEffect(()=>
+        {
+          loadAssociates();
+        },[])
+
+        // const loadCourses=async()=>
+        async function loadAssociates()
+        {
+          const testtableData1=axios.get("http://localhost:8081/ITP/getAssociates")
+          console.log("From axios")
+          // console.log((await testtableData1).data);
+          // testtableData.push(testtableData1);
+          settesttableData(...testtableData,(await testtableData1).data);
+          // testtableData=testtableData1;
+          // console.log(testtableData);
+
+          // setTableData([...tableData,(await testtableData).data])
+          // console.log(tableData)
+        }  
+
+
   // function handleEditClick(e,tabledata)
   // {
   //   // e.preventDefault();
@@ -102,11 +127,12 @@ function ManageAssociates() {
     console.log(formData);
     setTableData([...tableData, formData]);
     setFormData({
-      associateName: "",
-      w3id: "",
-      managerName: "",
-      role: "",
-      location: "default",
+      id: "",
+      name: "",
+      location: "",
+      ibmId: "",
+      managerName: "default",
+      role:"default"
     });
     console.log(tableData);
   }
@@ -117,9 +143,15 @@ function ManageAssociates() {
     setModalIsOpen(true);
   };
 
+  const handleDeleteClick =(row) =>
+  {
+    console.log(row)
+  }
+
   const handleFormSubmit = (event) => {
     event.preventDefault();
     // Process the form data or update the state as needed
+    console.log("updated")
     console.log(selectedRow);
     setModalIsOpen(false);
   };
@@ -139,7 +171,7 @@ function ManageAssociates() {
             <input
               className="formInput"
               type="text"
-              name="associateName"
+              name="name"
               placeholder="Name"
               value={formData.associateName}
               onChange={formChangehandler}
@@ -148,9 +180,9 @@ function ManageAssociates() {
             <input
               className="formInput"
               type="text"
-              name="w3id"
+              name="ibmId"
               placeholder="W3ID"
-              value={formData.w3id}
+              value={formData.ibmId}
               onChange={formChangehandler}
               required
             />
@@ -186,12 +218,13 @@ function ManageAssociates() {
               className="formInput"
               required
             >
-              <option value="">Designation</option>
+              <option value="default">Designation</option>
               <option value="Manager">Manager</option>
               <option value="Team Lead">Team Lead</option>
               <option value="Engineer">Engineer</option>
               <option value="New Hire">New Hire</option>
               <option value="Associate">Associate</option>
+              <option value="sp">sp</option>
             </select>
             <center>
               <input className="submitButton" type="submit" value="Add"></input>
@@ -202,11 +235,11 @@ function ManageAssociates() {
         <div className="rightColumn " style={{ height: 100 + "vh" }}>
           <>
             <center>
-              <h2 className="tableTitle">LIST OF ASSOCIATES</h2> <br />
+              <h2 className="tableTitle">LIST OF ENGINEERS</h2> <br />
               <table className="associateTable">
                 <thead>
                   <tr className="TableRow">
-                    <th className="TableHeader">Associate Name</th>
+                    <th className="TableHeader">ENGINEER Name</th>
                     <th className="TableHeader">W3id</th>
                     <th className="TableHeader">Location</th>
                     <th className="TableHeader">Manager's Name</th>
@@ -217,13 +250,16 @@ function ManageAssociates() {
                   </tr>
                 </thead>
                 <tbody>
-                  {tableData.map((tabledata, index) => (
+                  {          console.log(testtableData)
+}
+                  {
+                  testtableData.map((tabledata, index) => (
                     <tr key={index} className="TableRow">
                       <td style={{ fontWeight: "normal" }} className="elements">
-                        {tabledata.associateName}
+                        {tabledata.name}
                       </td>
                       <td style={{ fontWeight: "normal" }} className="elements">
-                        {tabledata.w3id}
+                        {tabledata.ibmId}
                       </td>
                       <td style={{ fontWeight: "normal" }} className="elements">
                         {tabledata.location}
@@ -249,7 +285,8 @@ function ManageAssociates() {
                       </td>
                       <td style={{ fontWeight: "normal" }} className="elements">
                         <MdDeleteForever
-                          onClick={deleted}
+                          onClick={() => handleDeleteClick(tabledata)}
+                          // onClick={deleted}
                           style={{ cursor: "pointer" }}
                         />
                       </td>
@@ -291,12 +328,12 @@ function ManageAssociates() {
                                 className="formInput"
                                 type="text"
                                 name="name"
-                                value={selectedRow.associateName}
+                                value={selectedRow.name}
                                 placeholder="Name"
                                 onChange={(e) =>
                                   setSelectedRow((prevRow) => ({
                                     ...prevRow,
-                                    associateName: e.target.value,
+                                    name: e.target.value,
                                   }))
                                 }
                               />
@@ -304,13 +341,13 @@ function ManageAssociates() {
                               <input
                                 className="formInput"
                                 type="text"
-                                name="w3id"
-                                value={selectedRow.w3id}
+                                name="ibmId"
+                                value={selectedRow.ibmId}
                                 placeholder="W3id"
                                 onChange={(e) =>
                                   setSelectedRow((prevRow) => ({
                                     ...prevRow,
-                                    w3id: e.target.value,
+                                    ibmId: e.target.value,
                                   }))
                                 }
                               />
@@ -366,6 +403,7 @@ function ManageAssociates() {
                                 <option value="Engineer">Engineer</option>
                                 <option value="New Hire">New Hire</option>
                                 <option value="Associate">Associate</option>
+                                <option value="sp">sp</option>
                               </select>
                               
                                 <input

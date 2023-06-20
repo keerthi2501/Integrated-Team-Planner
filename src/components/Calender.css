@@ -1,9 +1,9 @@
 .datePicker{
     display :block;
     /* align-items: right; */
-    margin-left: 80rem;
+    margin-left: 10rem;
     margin-top: 5rem;
-    width: 100% !important;
+    width: 15% !important;  
 }
 
 .scheduleHeader{

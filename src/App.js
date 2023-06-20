@@ -29,6 +29,7 @@ function App() {
       <Routes>
         <Route path='/' element = {<Login />}></Route>
         <Route path='/test' element={<Table></Table>}/>
+        {/* <Route path='/test1' element={<HolidayJSONformating></HolidayJSONformating>}/> */}
         <Route path='/holidayList'  element={<AssociateElement><ViewHolidays/></AssociateElement>}></Route>
         <Route path='/schedule'  element={<AssociateElement><ViewSchedule /></AssociateElement>}></Route>
         <Route path='/homescreen' element={<AssociateElement><LandingPage /></AssociateElement>}></Route> 

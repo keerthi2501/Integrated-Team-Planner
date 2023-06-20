@@ -84,6 +84,8 @@ function LeavePlanComponent(){
           e.preventDefault();
           for(var i=0;i<selectedDates.length;i++)
           {
+            const date=new Date(selectedDates[i]).toLocaleDateString('en-CA');
+            console.log(date)
             const obj={
               name:leaves.name,
               type:leaves.type,
@@ -93,16 +95,17 @@ function LeavePlanComponent(){
             }
             // console.log(obj)
             temp.push(obj)
+            console.log(obj)
             setTableData([...tableData,...temp])
             // console.log("Table Data")
             // console.log(tableData)
           }
           console.log(temp)
         }
-      function deleted()
-      {
-        alert("Are you sure??")
-      }
+        const handleDeleteClick =(row) =>
+        {
+          console.log(row)
+        }
 
         return (
           <>
@@ -156,7 +159,7 @@ function LeavePlanComponent(){
                           <td style={{fontWeight:'normal'}} className="elements">{tabledata.name}</td>
                           <td style={{fontWeight:'normal'}} className="elements">{tabledata.type}</td>
                           <td style={{fontWeight:'normal'}} className="elements">{new Date(tabledata.date).toLocaleDateString(undefined, {day:'2-digit',month:'short',year:'numeric'})}</td>
-                          <td className="elements"><MdDeleteForever onClick={deleted} style={{cursor:'pointer'}}/></td>
+                          <td className="elements"><MdDeleteForever onClick={() => handleDeleteClick(tabledata)} style={{ cursor: "pointer" }} /></td>
                         </tr>
                       ))}
                     </tbody>

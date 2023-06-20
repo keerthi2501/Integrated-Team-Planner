@@ -127,17 +127,10 @@ function DaySchedule()
         <tr className='TableRow'>
         <th className='TableHeader'></th>
           <th className='TableHeader'>Shift</th>
-          <th className='TableHeader'>Associate</th>
+          <th className='TableHeader'>Engineer</th>
         </tr>
       </thead>
       <tbody>
-
-        {/* {shifts.map((s,index) => {
-            <tr key={index}>
-                <td>{s.shift}</td>
-                <td>{s.associate}</td>
-            </tr>
-        })} */}
         
         {
           daySched.map((dS) => (
@@ -149,32 +142,7 @@ function DaySchedule()
             
           ))
         }
-        {/* <tr className='TableRow'>
-          <td className='elements'style={{fontWeight:'normal'}}>1</td>
-          <td className='elements' style={{fontWeight:'normal'}}>Shift_name</td>
-          <td className='elements' style={{fontWeight:'normal'}}>Associate_name</td>
-          
-        </tr>
-        <tr className='TableRow'>
-          <td className='elements' style={{fontWeight:'normal'}}>2</td>
-          <td className='elements' style={{fontWeight:'normal'}}>Shift_name</td>
-          <td className='elements' style={{fontWeight:'normal'}}>Associate_name</td>
-        </tr>
-        <tr className='TableRow'>
-          <td className='elements' style={{fontWeight:'normal'}}>3</td>
-          <td className='elements' style={{fontWeight:'normal'}}>Shift_name</td>
-          <td className='elements' style={{fontWeight:'normal'}}>Associate_name</td>
-        </tr>
-        <tr className='TableRow'>
-          <td className='elements' style={{fontWeight:'normal'}}>4</td>
-          <td className='elements' style={{fontWeight:'normal'}}>Shift_name</td>
-          <td className='elements' style={{fontWeight:'normal'}}>Associate_name</td>
-        </tr>
-        <tr className='TableRow'>
-          <td className='elements' style={{fontWeight:'normal'}}>5</td>
-          <td className='elements' style={{fontWeight:'normal'}}>Shift_name</td>
-          <td className='elements'style={{fontWeight:'normal'}}>Associate_name</td>
-        </tr> */}
+
       </tbody>
     </table>
     </div>

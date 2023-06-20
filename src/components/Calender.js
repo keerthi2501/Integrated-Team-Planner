@@ -35,7 +35,8 @@ function Calender(){
   return(
     <>
     {/* <h4>{yyyy_mm_dd}</h4> */}
-    <DatePicker  wrapperClassName="datePicker" selected={date} onChange={onChange} />
+    {/* <p>Pick the date</p> */}
+    <input type="date" ClassName="datePicker" value={date} onChange={onChange} />
     <DaySchedule date={yyyy_mm_dd} />
     </>
   );
